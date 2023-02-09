@@ -69,9 +69,28 @@ const signaller = {
                 this.buttonNames = []
                 localStorage.setItem('data', JSON.stringify(object))
             }
-
+            let citiesOfCurrentCountry = await fetch('https://countriesnow.space/api/v0.1/countries/population/cities/filter', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "limit": 1000,
+                    "order": "asc",
+                    "orderBy": "name",
+                    "country": `${name}`
+                })
+            })
+            let cityNames = await citiesOfCurrentCountry.json()
+            let cityNamesArr = cityNames.data
+            cityNamesArr.forEach(city => {
+                this.buttonNames.push(city.city)
+            })
+            controller.updateUi()
         } catch (error) { // if our api call fails for some reason or the link was incorrect we get the following error
             console.log('oooooooooooooooooops', error);
+            controller.updateUi()
         }
 
 

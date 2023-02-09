@@ -11,9 +11,11 @@ const signaller = {
                 let object = await data.json()
                 this.buttonNames = []
                 object.forEach(element => {
-                    this.buttonNames.push(element.name.common)
+                    this.checkIfCountriesHaveData(element.name.common)
                 })
                 this.buttonNames.sort()
+                this.checkIfCountriesHaveData()
+                console.log(this.buttonNames);
                 controller.updateUi()
                 console.log(this.buttonNames);
                 localStorage.setItem('data', JSON.stringify(object))
@@ -25,6 +27,22 @@ const signaller = {
 
 
     },
+
+    async checkIfCountriesHaveData(name) {
+        let response = await fetch('https://countriesnow.space/api/v0.1/countries/population', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "country": `${name}` })
+        })
+        if (response.ok === true) {
+            this.buttonNames.push(name)
+        }
+        controller.updateUi()
+    },
+
     async fetchCountryData(name) {
         try {
             let data = await fetch('https://countriesnow.space/api/v0.1/countries/population', {

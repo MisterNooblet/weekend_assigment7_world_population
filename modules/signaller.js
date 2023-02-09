@@ -2,6 +2,7 @@ import controller from "./controller.js"
 
 const signaller = {
     buttonNames: [],
+    countriesPromises: [],
     async fetchContinentData(continent) {
         try {
             let data = await fetch(`https://restcountries.com/v3.1/region/${continent.toLowerCase()}`) // fetching our character using *i* as an id
@@ -10,11 +11,24 @@ const signaller = {
             } else if (data.ok === true) {
                 let object = await data.json()
                 this.buttonNames = []
-                object.forEach(element => {
-                    this.checkIfCountriesHaveData(element.name.common)
-                })
+                this.countriesPromises = []
+                for (let i = 0; i < object.length; i++) {
+                    let response = fetch('https://countriesnow.space/api/v0.1/countries/population', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ "country": `${object[i].name.common}` })
+                    })
+                    this.countriesPromises.push(response);
+                }
+                Promise.all(this.countriesPromises).then((values) => {
+                    values.forEach(element => {
+                        this.processCountry(element.json())
+                    })
+                });
                 this.buttonNames.sort()
-                this.checkIfCountriesHaveData()
                 console.log(this.buttonNames);
                 controller.updateUi()
                 console.log(this.buttonNames);
@@ -28,19 +42,13 @@ const signaller = {
 
     },
 
-    async checkIfCountriesHaveData(name) {
-        let response = await fetch('https://countriesnow.space/api/v0.1/countries/population', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ "country": `${name}` })
+    processCountry(country) {
+        country.then(data => {
+            if (data.error === false) {
+                this.buttonNames.push(data.data.country)
+                controller.updateUi()
+            }
         })
-        if (response.ok === true) {
-            this.buttonNames.push(name)
-        }
-        controller.updateUi()
     },
 
     async fetchCountryData(name) {
@@ -58,14 +66,7 @@ const signaller = {
                 throw new Error(data.status)
             } else if (data.ok === true) {
                 let object = await data.json()
-
                 this.buttonNames = []
-                // object.forEach(element => {
-                //     this.buttonNames.push(element.name.common)
-                // })
-                // this.buttonNames.sort()
-                // controller.updateUi()
-                // console.log(this.buttonNames);
                 localStorage.setItem('data', JSON.stringify(object))
             }
 

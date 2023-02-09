@@ -10,11 +10,18 @@ const controller = {
             signaller.fetchContinentData(target)
         } else if (type === 'country') {
             signaller.fetchCountryData(target)
+        } else if (type === 'city') {
+            signaller.fetchCityData(target)
         }
     },
-    updateUi() {
+    updateUi(depth) {
         uiControl.clearButtons()
-        uiControl.makeButtons(signaller.buttonNames, 'lower-buttons', 2)
+        if (depth === 2) {
+            uiControl.makeButtons(signaller.buttonNames, 'lower-buttons', 2)
+
+        } else if (depth === 3) {
+            uiControl.makeButtons(signaller.buttonNames, 'lower-buttons', 3)
+        }
     }
 }
 

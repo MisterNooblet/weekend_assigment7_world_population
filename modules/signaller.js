@@ -30,7 +30,7 @@ const signaller = {
                 });
                 this.buttonNames.sort()
                 console.log(this.buttonNames);
-                controller.updateUi()
+                controller.updateUi(2)
                 console.log(this.buttonNames);
                 localStorage.setItem('data', JSON.stringify(object))
             }
@@ -46,7 +46,7 @@ const signaller = {
         country.then(data => {
             if (data.error === false) {
                 this.buttonNames.push(data.data.country)
-                controller.updateUi()
+                controller.updateUi(2)
             }
         })
     },
@@ -87,10 +87,36 @@ const signaller = {
             cityNamesArr.forEach(city => {
                 this.buttonNames.push(city.city)
             })
-            controller.updateUi()
+            controller.updateUi(3)
         } catch (error) { // if our api call fails for some reason or the link was incorrect we get the following error
             console.log('oooooooooooooooooops', error);
-            controller.updateUi()
+            controller.updateUi(3)
+        }
+
+
+    },
+    async fetchCityData(name) {
+        try {
+            let data = await fetch('https://countriesnow.space/api/v0.1/countries/population/cities', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "city": `${name}`
+                })
+            })
+            console.log(data);
+            if (data.ok === false) {
+                throw new Error(data.status)
+            } else if (data.ok === true) {
+                let object = await data.json()
+                localStorage.setItem('citydata', JSON.stringify(object))
+            }
+            controller.updateUi(3)
+        } catch (error) { // if our api call fails for some reason or the link was incorrect we get the following error
+            console.log('oooooooooooooooooops', error);
         }
 
 

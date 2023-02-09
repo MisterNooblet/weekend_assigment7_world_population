@@ -23,6 +23,12 @@ const uiControl = {
                         console.log(e.target.innerHTML);
                     })
                     break;
+                case 3:
+                    btn.addEventListener('click', (e) => {
+                        controller.fetch('city', e.target.innerHTML)
+                        console.log(e.target.innerHTML);
+                    })
+                    break;
                 default:
                     break;
             }

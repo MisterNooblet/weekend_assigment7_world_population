@@ -224,6 +224,7 @@ const uiControl = {
                     }]
                 },
                 options: {
+
                     scales: {
                         y: {
                             beginAtZero: true

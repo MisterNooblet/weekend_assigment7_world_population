@@ -23,6 +23,8 @@ const controller = {
         } else if (depth === 3) {
             uiControl.makeButtons(signaller.buttonNames, 'lower-buttons', 3)
             uiControl.updateGraph('country')
+        } else if (depth === 4) {
+            uiControl.updateGraph('city')
         }
     }
 }

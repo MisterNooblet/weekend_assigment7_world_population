@@ -182,6 +182,42 @@ const uiControl = {
                     }
                 }
             });
+        } else if (types === 'city') {
+            const data = JSON.parse(localStorage.getItem('citydata'))
+            console.log(data);
+            let labels = data.data.populationCounts.reduce((a, b) => {
+                a.push(Object.values(b)[0])
+                return a
+            }, [])
+            let populations = []
+            data.data.populationCounts.forEach(element => {
+                populations.push(element.value)
+
+            })
+            if (this.chartExists === true) {
+                this.myLineChart.destroy();
+            }
+            this.chartExists = true
+            this.myLineChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: data.data.city,
+                        data: populations,
+                        fill: true,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
         }
 
 

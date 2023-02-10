@@ -129,7 +129,7 @@ const signaller = {
                 let object = await data.json()
                 localStorage.setItem('citydata', JSON.stringify(object))
             }
-            controller.updateUi(3)
+            controller.updateUi(4)
         } catch (error) { // if our api call fails for some reason or the link was incorrect we get the following error
             console.log('oooooooooooooooooops', error);
         }

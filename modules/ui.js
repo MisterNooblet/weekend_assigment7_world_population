@@ -167,9 +167,9 @@ const uiControl = {
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '',
+                        label: data.data.country,
                         data: populations,
-                        fill: false,
+                        fill: true,
                         borderColor: 'rgb(75, 192, 192)',
                         tension: 0.1
                     }]

@@ -5,6 +5,7 @@ const signaller = {
     countriesPromises: [],
     continentCountries: [],
     async fetchContinentData(continent) {
+        controller.buttonControl('disable')
         try {
             let data = await fetch(`https://restcountries.com/v3.1/region/${continent.toLowerCase()}`) // fetching our character using *i* as an id
             if (data.ok === false) {
@@ -32,7 +33,10 @@ const signaller = {
                         this.processCountry(element.json())
                     })
                 })
-                setTimeout(() => { controller.updateUi(2) }, 1)
+                setTimeout(() => {
+                    controller.updateUi(2)
+                    controller.buttonControl('enable')
+                }, 1)
                 // this.buttonNames.sort()
 
             }
@@ -67,6 +71,7 @@ const signaller = {
         })
     },
     async fetchCountryData(name) {
+        controller.buttonControl('disable')
         try {
             let data = await fetch('https://countriesnow.space/api/v0.1/countries/population', {
                 method: 'POST',
@@ -107,10 +112,11 @@ const signaller = {
             console.log('oooooooooooooooooops', error);
             controller.updateUi(3)
         }
-
+        controller.buttonControl('enable')
 
     },
     async fetchCityData(name) {
+        controller.buttonControl('disable')
         try {
             let data = await fetch('https://countriesnow.space/api/v0.1/countries/population/cities', {
                 method: 'POST',
@@ -134,8 +140,9 @@ const signaller = {
             console.log('oooooooooooooooooops', error);
         }
 
-
+        controller.buttonControl('enable')
     },
+
 }
 
 export default signaller;

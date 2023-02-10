@@ -26,6 +26,13 @@ const controller = {
         } else if (depth === 4) {
             uiControl.updateGraph('city')
         }
+    },
+    buttonControl(command) {
+        if (command === 'disable') {
+            uiControl.controlButtons('disable')
+        } else if (command === 'enable') {
+            uiControl.controlButtons('enable')
+        }
     }
 }
 

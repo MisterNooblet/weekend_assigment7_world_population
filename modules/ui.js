@@ -43,6 +43,19 @@ const uiControl = {
     clearButtons() {
         document.querySelector('#lower-buttons').innerHTML = ''
     },
+    controlButtons(command) {
+        let buttons = document.querySelectorAll('button')
+        if (command === 'disable') {
+            buttons.forEach(element => {
+                element.disabled = true
+            })
+        } else if (command === 'enable') {
+            buttons.forEach(element => {
+                element.disabled = false
+            })
+        }
+
+    },
     updateGraph(types) {
 
 

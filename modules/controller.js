@@ -1,11 +1,13 @@
 import uiControl from "./ui.js"
 import signaller from "./signaller.js"
+
+//The controller class , its purpose is to communicate between diffrent modules of the Application.
 const controller = {
 
-    init() {
+    init() {//initializes the continent button
         return uiControl.makeButtons(['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'], 'continents-container', 1)
     },
-    fetch(type, target) {
+    fetch(type, target) {//calls signaller module , to fetch data from api.
         if (type === 'continent') {
             signaller.fetchContinentData(target)
         } else if (type === 'country') {
@@ -14,7 +16,7 @@ const controller = {
             signaller.fetchCityData(target)
         }
     },
-    updateUi(depth, array) {
+    updateUi(depth, array) {//calls uiControl module to update the UI
         uiControl.clearButtons()
         if (depth === 2) {
             uiControl.updateGraph('continent')
@@ -28,9 +30,8 @@ const controller = {
             uiControl.updateGraph('city')
         }
     },
-    buttonControl(command) {
+    buttonControl(command) { // Makes buttons disabled while we load data from the API
         if (command === 'disable') {
-
             uiControl.controlButtons('disable')
         } else if (command === 'enable') {
             uiControl.controlButtons('enable')

@@ -1,6 +1,7 @@
 
 import controller from "./controller.js"
 import signaller from "./signaller.js";
+//chart related plugins and variables
 Chart.defaults.color = 'rgb(255, 166, 0)';
 const gradient = window['chartjs-plugin-gradient'];
 const plugin = {
@@ -15,6 +16,8 @@ const plugin = {
     }
 };
 Chart.register(gradient);
+
+//uiControl module
 const uiControl = {
     chartExists: false,
     myLineChart: null,
@@ -71,12 +74,10 @@ const uiControl = {
         let chart = document.querySelector('#myChart')
         let spinner = document.querySelector('.circle')
         if (command === 'disable') {
-            // spinner.classList.remove('hidden')
             buttons.forEach(element => {
                 element.disabled = true
             })
         } else if (command === 'enable') {
-            // spinner.classList.add('hidden')
             buttons.forEach(element => {
                 element.disabled = false
             })

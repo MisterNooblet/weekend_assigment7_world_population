@@ -10,7 +10,6 @@ const signaller = {
         try {
             let data = await fetch(`https://restcountries.com/v3.1/region/${continent.toLowerCase()}`) // fetching our character using *i* as an id
             if (data.ok === false) {
-                // throw new Error(data.status)
             } else if (data.ok === true) {
                 let object = await data.json()
                 this.buttonNames = []
@@ -45,18 +44,16 @@ const signaller = {
                     controller.buttonControl('enable')
                 }, 1)
                 console.log(this.countryFlags);
-                // this.buttonNames.sort()
-
             }
 
-        } catch (error) { // if our api call fails for some reason or the link was incorrect we get the following error
+        } catch (error) {
             console.log('oooooooooooooooooops', error);
         }
 
 
     },
 
-    processCountry(country) {
+    processCountry(country) { //Manages promises when comparing our data between 2 diffrent API's
         country.then(data => {
             if (data.error === false) {
                 let countryName = data.data.country

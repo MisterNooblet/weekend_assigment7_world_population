@@ -22,6 +22,7 @@ const controller = {
 
         } else if (depth === 3) {
             uiControl.makeButtons(signaller.buttonNames, 'lower-buttons', 3)
+            uiControl.updateGraph('country')
         }
     }
 }

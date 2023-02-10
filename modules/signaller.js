@@ -15,6 +15,7 @@ const signaller = {
                 this.countriesPromises = []
                 this.continentCountries = []
                 for (let i = 0; i < object.length; i++) {
+
                     let response = fetch('https://countriesnow.space/api/v0.1/countries/population', {
                         method: 'POST',
                         headers: {
@@ -25,26 +26,14 @@ const signaller = {
                     })
                     this.countriesPromises.push(response);
                 }
-                for (let i = 0; i < object.length; i++) {
-                    let response = fetch('https://countriesnow.space/api/v0.1/countries/population', {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ "country": `${object[i].name.official}` })
-                    })
-                    console.log(response);
-                    this.countriesPromises.push(response);
 
-                }
                 const promises = await Promise.all(this.countriesPromises).then((values) => {
                     values.forEach(element => {
                         this.processCountry(element.json())
                     })
                 })
                 setTimeout(() => { controller.updateUi(2) }, 1)
-                this.buttonNames.sort()
+                // this.buttonNames.sort()
 
             }
 
@@ -59,7 +48,7 @@ const signaller = {
         country.then(data => {
             if (data.error === false) {
                 let countryName = data.data.country
-                let countryCurrentPopulation = data.data.populationCounts[data.data.populationCounts.length - 1]
+                let countryCurrentPopulation = data.data.populationCounts.reverse()
                 let countryObj = {
                     name: countryName,
                     population: countryCurrentPopulation
@@ -68,7 +57,10 @@ const signaller = {
 
                     this.buttonNames.push(countryName)
                 }
-                this.continentCountries.push(countryObj)
+                if (!this.continentCountries.countryObj) {
+
+                    this.continentCountries.push(countryObj)
+                }
                 this.buttonNames.sort()
                 localStorage.setItem('data', JSON.stringify(this.continentCountries))
             }

@@ -17,6 +17,7 @@ const controller = {
     updateUi(depth) {
         uiControl.clearButtons()
         if (depth === 2) {
+            uiControl.updateGraph('continent')
             uiControl.makeButtons(signaller.buttonNames, 'lower-buttons', 2)
 
         } else if (depth === 3) {

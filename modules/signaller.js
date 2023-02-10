@@ -3,15 +3,17 @@ import controller from "./controller.js"
 const signaller = {
     buttonNames: [],
     countriesPromises: [],
+    continentCountries: [],
     async fetchContinentData(continent) {
         try {
             let data = await fetch(`https://restcountries.com/v3.1/region/${continent.toLowerCase()}`) // fetching our character using *i* as an id
             if (data.ok === false) {
-                throw new Error(data.status)
+                // throw new Error(data.status)
             } else if (data.ok === true) {
                 let object = await data.json()
                 this.buttonNames = []
                 this.countriesPromises = []
+                this.continentCountries = []
                 for (let i = 0; i < object.length; i++) {
                     let response = fetch('https://countriesnow.space/api/v0.1/countries/population', {
                         method: 'POST',
@@ -23,16 +25,27 @@ const signaller = {
                     })
                     this.countriesPromises.push(response);
                 }
-                Promise.all(this.countriesPromises).then((values) => {
+                for (let i = 0; i < object.length; i++) {
+                    let response = fetch('https://countriesnow.space/api/v0.1/countries/population', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ "country": `${object[i].name.official}` })
+                    })
+                    console.log(response);
+                    this.countriesPromises.push(response);
+
+                }
+                const promises = await Promise.all(this.countriesPromises).then((values) => {
                     values.forEach(element => {
                         this.processCountry(element.json())
                     })
-                });
+                })
+                setTimeout(() => { controller.updateUi(2) }, 1)
                 this.buttonNames.sort()
-                console.log(this.buttonNames);
-                controller.updateUi(2)
-                console.log(this.buttonNames);
-                localStorage.setItem('data', JSON.stringify(object))
+
             }
 
         } catch (error) { // if our api call fails for some reason or the link was incorrect we get the following error
@@ -45,12 +58,22 @@ const signaller = {
     processCountry(country) {
         country.then(data => {
             if (data.error === false) {
-                this.buttonNames.push(data.data.country)
-                controller.updateUi(2)
+                let countryName = data.data.country
+                let countryCurrentPopulation = data.data.populationCounts[data.data.populationCounts.length - 1]
+                let countryObj = {
+                    name: countryName,
+                    population: countryCurrentPopulation
+                }
+                if (this.buttonNames.indexOf(countryName) === -1) {
+
+                    this.buttonNames.push(countryName)
+                }
+                this.continentCountries.push(countryObj)
+                this.buttonNames.sort()
+                localStorage.setItem('data', JSON.stringify(this.continentCountries))
             }
         })
     },
-
     async fetchCountryData(name) {
         try {
             let data = await fetch('https://countriesnow.space/api/v0.1/countries/population', {

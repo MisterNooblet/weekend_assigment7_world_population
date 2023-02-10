@@ -25,9 +25,15 @@ section {
   align-items: center;
   background-color: rgb(58, 58, 58);
 }
+.hidden {
+  display: none !important;
+}
 .chart-container {
   position: relative;
   flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 canvas {
   width: 100%;
@@ -76,3 +82,74 @@ button {
     flex-grow: 1;
   }
 } */
+
+.circle {
+  position: relative;
+  /* margin-top: 10rem; */
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  align-self: center;
+  justify-self: end;
+}
+
+.circle:before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px #333, 0 0 0 20px #444, 0 0 0 30px #555, 0 0 0 40px #666,
+    0 0 0 50px #777, inset 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.dots {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border-radius: 50%;
+  animation: animate 10s linear infinite;
+}
+
+.dots:before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  left: calc(50% - 5px);
+  top: 0;
+  box-shadow: 50px 0 0 #fff, -65px -50px 0 #fff, -65px 50px 0 #fff,
+    -55px 0 0 #f07e6e, 45px 35px 0 #84cdfa, -40px -40px 0 #5ad1cd,
+    40px -40px 0 #fff, 55px -59px 0 #fff;
+  animation: animate 10s linear infinite;
+}
+
+.dots:after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  left: calc(50% - 5px);
+  bottom: 0;
+  box-shadow: -50px 0 0 #fff, 65px 50px 0 #fff, 65px -50px 0 #fff,
+    55px 0 0 #84cdfa, -45px -35px 0 #f07e6e, 40px 40px 0 #5ad1cd,
+    -40px 40px 0 #fff, -55px 59px 0 #fff;
+  animation: animate 10s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

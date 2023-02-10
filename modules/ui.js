@@ -71,12 +71,12 @@ const uiControl = {
         let chart = document.querySelector('#myChart')
         let spinner = document.querySelector('.circle')
         if (command === 'disable') {
-            spinner.classList.remove('hidden')
+            // spinner.classList.remove('hidden')
             buttons.forEach(element => {
                 element.disabled = true
             })
         } else if (command === 'enable') {
-            spinner.classList.add('hidden')
+            // spinner.classList.add('hidden')
             buttons.forEach(element => {
                 element.disabled = false
             })
@@ -91,7 +91,7 @@ const uiControl = {
     },
     updateGraph(types) {
 
-
+        this.destroyChart()
         const ctx = document.getElementById('myChart');
         if (types === 'continent') {
             const data = JSON.parse(localStorage.getItem('data'))

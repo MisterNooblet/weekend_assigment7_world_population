@@ -7,21 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World Population</title>
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/chartjs-plugin-gradient"></script>
     <script defer src="/modules/app.js" type="module"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <header>
-        <H1>World Population</H1>
-        <div id="continents-container">
+    <section>
 
+        <header>
+            <H1>World Population Data</H1>
+            <div id="continents-container">
+
+            </div>
+        </header>
+        <div class="chart-container">
+            <canvas id="myChart"></canvas>
         </div>
-    </header>
-    <div class="chart-container">
-        <canvas id="myChart"></canvas>
-    </div>
-    <div id="lower-buttons"></div>
+        <div id="lower-buttons"></div>
+    </section>
 
 </body>
 

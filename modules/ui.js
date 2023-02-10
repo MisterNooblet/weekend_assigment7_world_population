@@ -1,8 +1,20 @@
 
 import controller from "./controller.js"
 import signaller from "./signaller.js";
-
-
+Chart.defaults.color = 'rgb(255, 166, 0)';
+const gradient = window['chartjs-plugin-gradient'];
+const plugin = {
+    id: 'customCanvasBackgroundColor',
+    beforeDraw: (chart, args, options) => {
+        const { ctx } = chart;
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-over';
+        ctx.fillStyle = options.color || '#99ffff';
+        ctx.fillRect(0, 0, chart.width, chart.height);
+        ctx.restore();
+    }
+};
+Chart.register(gradient);
 const uiControl = {
     chartExists: false,
     myLineChart: null,
@@ -84,80 +96,81 @@ const uiControl = {
                         label: '2018',
                         data: populations[0],
                         fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgb(19, 241, 149)',
                         tension: 0.1
                     },
                     {
                         label: '2017',
                         data: populations[1],
                         fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgb(33, 226, 161)',
                         tension: 0.1
                     },
                     {
                         label: '2016',
                         data: populations[2],
                         fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgb(83, 161, 201)',
                         tension: 0.1
                     },
                     {
                         label: '2015',
                         data: populations[3],
                         fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgb(91, 150, 205)',
                         tension: 0.1
                     },
                     {
                         label: '2014',
                         data: populations[4],
                         fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgb(109, 126, 220)',
                         tension: 0.1
                     },
                     {
                         label: '2013',
                         data: populations[5],
                         fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgb(120, 110, 229)',
                         tension: 0.1
                     },
                     {
                         label: '2012',
                         data: populations[6],
                         fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgb(140, 87, 244)',
                         tension: 0.1
                     },
                     {
                         label: '2011',
                         data: populations[7],
                         fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgb(151, 69, 253)',
                         tension: 0.1
                     },
                     {
                         label: '2010',
                         data: populations[8],
                         fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgb(105, 48, 176)',
                         tension: 0.1
                     },
                     {
                         label: '2009',
                         data: populations[9],
                         fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgb(59, 27, 99)',
                         tension: 0.1
                     },]
                 },
                 options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                    plugins: {
+                        customCanvasBackgroundColor: {
+                            color: 'rgb(90, 90, 90)',
                         }
                     }
-                }
+                },
+                plugins: [plugin],
             });
         } else if (types === 'country') {
             const data = JSON.parse(localStorage.getItem('data'))
@@ -183,17 +196,32 @@ const uiControl = {
                         label: data.data.country,
                         data: populations,
                         fill: true,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
+                        // backgroundColor: 'rgb(19, 241, 149)',
+                        tension: 0.5,
+                        gradient: {
+                            backgroundColor: {
+                                axis: 'x',
+                                colors: {
+                                    0: '#9945FF',
+                                    100: '#14F195'
+                                }
+                            },
+                            borderColor: {
+                                axis: 'x',
+                                colors: {
+                                }
+                            }
+                        }
                     }]
                 },
                 options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                    plugins: {
+                        customCanvasBackgroundColor: {
+                            color: 'rgb(90, 90, 90)',
                         }
                     }
-                }
+                },
+                plugins: [plugin],
             });
         } else if (types === 'city') {
             const data = JSON.parse(localStorage.getItem('citydata'))
@@ -220,17 +248,32 @@ const uiControl = {
                         data: populations,
                         fill: true,
                         borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
+                        backgroundColor: 'rgb(75, 192, 192)',
+                        tension: 0.1,
+                        gradient: {
+                            backgroundColor: {
+                                axis: 'x',
+                                colors: {
+                                    0: '#9945FF',
+                                    100: '#14F195'
+                                }
+                            },
+                            borderColor: {
+                                axis: 'x',
+                                colors: {
+                                }
+                            }
+                        }
                     }]
                 },
                 options: {
-
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                    plugins: {
+                        customCanvasBackgroundColor: {
+                            color: 'rgb(90, 90, 90)',
                         }
                     }
-                }
+                },
+                plugins: [plugin],
             });
         }
 

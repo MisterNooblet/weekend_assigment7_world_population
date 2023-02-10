@@ -30,6 +30,7 @@ const controller = {
     },
     buttonControl(command) {
         if (command === 'disable') {
+            uiControl.destroyChart()
             uiControl.controlButtons('disable')
         } else if (command === 'enable') {
             uiControl.controlButtons('enable')

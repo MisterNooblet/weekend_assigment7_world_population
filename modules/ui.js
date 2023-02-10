@@ -68,16 +68,26 @@ const uiControl = {
     },
     controlButtons(command) {
         let buttons = document.querySelectorAll('button')
+        let chart = document.querySelector('#myChart')
+        let spinner = document.querySelector('.circle')
         if (command === 'disable') {
+            spinner.classList.remove('hidden')
             buttons.forEach(element => {
                 element.disabled = true
             })
         } else if (command === 'enable') {
+            spinner.classList.add('hidden')
             buttons.forEach(element => {
                 element.disabled = false
             })
         }
 
+    },
+    destroyChart() {
+        if (this.chartExists === true) {
+            this.myLineChart.destroy();
+        }
+        this.chartExists = true
     },
     updateGraph(types) {
 
@@ -95,10 +105,6 @@ const uiControl = {
                     populations[i].push(element.population[i].value)
                 }
             })
-            if (this.chartExists === true) {
-                this.myLineChart.destroy();
-            }
-            this.chartExists = true
             this.myLineChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -195,10 +201,7 @@ const uiControl = {
                 populations.push(element.value)
 
             })
-            if (this.chartExists === true) {
-                this.myLineChart.destroy();
-            }
-            this.chartExists = true
+
             this.myLineChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -246,10 +249,6 @@ const uiControl = {
                 populations.push(element.value)
 
             })
-            if (this.chartExists === true) {
-                this.myLineChart.destroy();
-            }
-            this.chartExists = true
             this.myLineChart = new Chart(ctx, {
                 type: 'bar',
                 data: {

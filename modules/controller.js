@@ -14,11 +14,12 @@ const controller = {
             signaller.fetchCityData(target)
         }
     },
-    updateUi(depth) {
+    updateUi(depth, array) {
         uiControl.clearButtons()
         if (depth === 2) {
             uiControl.updateGraph('continent')
             uiControl.makeButtons(signaller.buttonNames, 'lower-buttons', 2)
+            uiControl.applyFlags(array)
 
         } else if (depth === 3) {
             uiControl.makeButtons(signaller.buttonNames, 'lower-buttons', 3)
@@ -33,7 +34,8 @@ const controller = {
         } else if (command === 'enable') {
             uiControl.controlButtons('enable')
         }
-    }
+    },
+
 }
 
 export default controller;

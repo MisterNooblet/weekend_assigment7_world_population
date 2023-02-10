@@ -52,6 +52,17 @@ const uiControl = {
 
 
     },
+    applyFlags(array) {
+        let buttons = document.querySelectorAll('button')
+        buttons.forEach(button => {
+            array.forEach(element => {
+                if (button.innerHTML === element.name) {
+                    button.style.background = `url(${element.flag}) center center/cover`
+                    button.classList.add('flag-btn')
+                }
+            })
+        })
+    },
     clearButtons() {
         document.querySelector('#lower-buttons').innerHTML = ''
     },

@@ -4,6 +4,7 @@ const signaller = {
     buttonNames: [],
     countriesPromises: [],
     continentCountries: [],
+    countryFlags: [],
     async fetchContinentData(continent) {
         controller.buttonControl('disable')
         try {
@@ -15,8 +16,14 @@ const signaller = {
                 this.buttonNames = []
                 this.countriesPromises = []
                 this.continentCountries = []
+                this.countryFlags = []
                 for (let i = 0; i < object.length; i++) {
-
+                    let countryName = object[i].name.common
+                    let countryFlag = object[i].flags.svg
+                    this.countryFlags.push({
+                        name: countryName,
+                        flag: countryFlag
+                    })
                     let response = fetch('https://countriesnow.space/api/v0.1/countries/population', {
                         method: 'POST',
                         headers: {
@@ -34,9 +41,10 @@ const signaller = {
                     })
                 })
                 setTimeout(() => {
-                    controller.updateUi(2)
+                    controller.updateUi(2, this.countryFlags)
                     controller.buttonControl('enable')
                 }, 1)
+                console.log(this.countryFlags);
                 // this.buttonNames.sort()
 
             }

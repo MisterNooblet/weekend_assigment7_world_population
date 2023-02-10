@@ -11,7 +11,7 @@ body {
   align-items: center;
 }
 canvas {
-  max-height: 80vh;
+  height: 80vh;
   flex-grow: 1;
 }
 header {
@@ -29,7 +29,9 @@ header {
 }
 
 @media (orientation: portrait) {
-  body {
-    height: 100vh;
+  canvas {
+    height: 80vh;
+    max-width: 90vw;
+    flex-grow: 1;
   }
 }

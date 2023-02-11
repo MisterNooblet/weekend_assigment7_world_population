@@ -37,7 +37,7 @@ section {
   align-items: center;
   justify-content: center;
   width: 80vw;
-  height: 80vh;
+  height: 75vh;
 }
 canvas {
   /* width: 100%;

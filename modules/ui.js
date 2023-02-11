@@ -31,20 +31,17 @@ const uiControl = {
                 case 1:
                     btn.addEventListener('click', (e) => {
                         controller.fetch('continent', e.target.innerHTML)
-                        console.log(e.target.innerHTML);
 
                     })
                     break;
                 case 2:
                     btn.addEventListener('click', (e) => {
                         controller.fetch('country', e.target.innerHTML)
-                        console.log(e.target.innerHTML);
                     })
                     break;
                 case 3:
                     btn.addEventListener('click', (e) => {
                         controller.fetch('city', e.target.innerHTML)
-                        console.log(e.target.innerHTML);
                     })
                     break;
                 default:
@@ -195,7 +192,6 @@ const uiControl = {
             });
         } else if (types === 'country') {
             const data = JSON.parse(localStorage.getItem('data'))
-            console.log(data);
             let labels = data.data.populationCounts.reduce((a, b) => {
                 a.push(Object.values(b)[0])
                 return a
@@ -243,7 +239,6 @@ const uiControl = {
             });
         } else if (types === 'city') {
             const data = JSON.parse(localStorage.getItem('citydata'))
-            console.log(data);
             let labels = data.data.populationCounts.reduce((a, b) => {
                 a.push(Object.values(b)[0])
                 return a

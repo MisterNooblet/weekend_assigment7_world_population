@@ -43,7 +43,6 @@ const signaller = {
                     controller.updateUi(2, this.countryFlags)
                     controller.buttonControl('enable')
                 }, 1)
-                console.log(this.countryFlags);
             }
 
         } catch (error) {
@@ -86,7 +85,6 @@ const signaller = {
                 },
                 body: JSON.stringify({ "country": `${name}` })
             })
-            console.log(data);
             if (data.ok === false) {
                 throw new Error(data.status)
             } else if (data.ok === true) {
@@ -133,7 +131,6 @@ const signaller = {
                     "city": `${name}`
                 })
             })
-            console.log(data);
             if (data.ok === false) {
                 throw new Error(data.status)
             } else if (data.ok === true) {

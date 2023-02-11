@@ -23,7 +23,46 @@
         </header>
 
         <div class="chart-container">
-            <canvas id="myChart"></canvas>
+            <canvas id="myChart">
+            </canvas>
+            <!-- <div class="circle hidden">
+                <div class="dots"></div>
+            </div> -->
+            <div class="layout circle">
+                <div class="planet">
+                    <div class="planet__day"></div>
+
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="planet__night">
+                        <defs>
+                            <filter id="planet-blur">
+                                <feGaussianBlur stdDeviation="1" />
+                            </filter>
+                            <mask id="planet-phases">
+                                <g transform="rotate(25, 50, 50)">
+                                    <rect class="planet__backdrop" x="0" width="100" height="100" fill="#000" />
+                                    <circle class="planet__backdrop" cx="50" cy="50" r="50" fill="#fff" />
+                                    <g filter="url(#planet-blur)">
+                                        <rect class="planet__flipper" x="0" width="50" height="100" fill="#000" />
+                                        <circle class="planet__spinner planet__spinner--day" cx="50" cy="50" r="50"
+                                            fill="#fff" />
+                                        <circle class="planet__spinner planet__spinner--night" cx="50" cy="50" r="50"
+                                            fill="#000" />
+                                    </g>
+                                </g>
+                            </mask>
+                            <pattern id="planet-night" x="0" y="0" patternUnits="userSpaceOnUse" height="100"
+                                width="200">
+                                <image class="planet__night-image" x="0" y="0" height="100" width="200"
+                                    xlink:href="http://www.shadedrelief.com/natural3/images/night.jpg"></image>
+                                <image class="planet__night-image" x="-199" y="0" height="100" width="200"
+                                    xlink:href="http://www.shadedrelief.com/natural3/images/night.jpg"></image>
+                            </pattern>
+                        </defs>
+
+                        <circle cx="50" cy="50" r="50" mask="url(#planet-phases)" fill="url(#planet-night)" />
+                    </svg>
+                </div>
+            </div>
         </div>
         <div id="lower-buttons"></div>
     </section>

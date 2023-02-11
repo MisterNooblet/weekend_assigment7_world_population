@@ -184,6 +184,7 @@ const uiControl = {
                     },]
                 },
                 options: {
+                    maintainAspectRatio: false,
                     plugins: {
                         customCanvasBackgroundColor: {
                             color: 'rgb(90, 90, 90)',

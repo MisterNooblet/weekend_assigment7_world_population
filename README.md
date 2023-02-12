@@ -14,13 +14,17 @@ git clone https://github.com/MisterNooblet/weekend_assigment7_world_population.g
 ```
 Install dependencies:
 ```bash 
-npm install
+npm install -g live-server
 ```
-Start the development server: 
+Move your terminal to where your pages live: 
 ```bash 
-npm start
+cd <path-to-content>
 ```
-The app will be served at http://localhost:3000/.
+Start the server:
+```bash
+live-server .
+```
+Open localhost:8080 in a browser
 
 
 ## Demo

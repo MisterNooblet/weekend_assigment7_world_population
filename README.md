@@ -16,7 +16,7 @@ Install dependencies:
 ```bash 
 npm install -g live-server
 ```
-Move your terminal to where your pages live: 
+Move your terminal to cloned repository directory: 
 ```bash 
 cd <path-to-content>
 ```
